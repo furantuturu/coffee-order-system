@@ -1,0 +1,172 @@
+@font-face {
+    font-family: 'Quesha';
+    src: url(../assets/Quesha.ttf)
+}
+
+*, *::before, *::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Quesha', Arial, Helvetica, sans-serif;
+    font-size: 18px;
+    color: #f2f2f2;
+    height: 100dvh;
+    overflow-x: hidden;
+}
+
+button {
+    font-family: 'Quesha', Arial, Helvetica, sans-serif;
+    background: none;
+    outline: none;
+    border: none;
+    cursor: pointer;
+}
+
+.hidden {
+    display: none;
+}
+
+.coffee-modal {
+    border: none;
+    margin: auto;
+    animation: coffeepopup ease-out 100ms forwards;
+
+    &::backdrop {
+        background-color: #22222250;
+    }
+}
+
+.coffee-container {
+    background: url('../assets/chillcoffee.gif');
+    background-attachment: fixed;
+    height: 100%;
+
+    hr {
+        margin-block-end: 3rem;
+        border-color: #8d725d;
+        border-width: 5px;
+    }
+
+    .coffee-menu {
+        max-width: 720px;
+        margin: auto;
+        background-color: #6B4C3590;
+        height: 100%;
+        border-left: #8d725d 10px solid;
+        border-left-style: inset;
+
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            padding-block: 1.5rem;
+        }
+
+        .coffee-selection {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .coffee-imgs {
+                .coffee-img {
+                    border-radius: 1.6rem 1.6rem .8rem .8rem;
+                    border: 2px solid #694b34;
+                    border-style: inset;
+                    filter: drop-shadow(0 0 .40rem #694b34);
+                    transition: all ease-in 100ms;
+                    animation: coffeepopup ease-out 100ms forwards;
+                    cursor: pointer;
+                    
+                    &:hover {
+                        filter: drop-shadow(0 0 .75rem #694b34);
+                    }
+                }
+            }
+            
+            #coffee-select {
+                margin-block-end: .7rem;
+                font-family: 'Quesha', Arial, Helvetica, sans-serif;
+                font-size: 1.3rem;
+                text-align: center;
+                padding: .7rem 1rem;
+                border-radius: .6rem;
+                background-color: #f2f2f2;
+                border: 2px solid #694b34;
+                border-style: inset;
+                cursor: pointer;
+                transition: all ease-in 100ms;
+                mar
+
+                &:hover {
+                    filter: drop-shadow(0 0 .60rem #694b34);
+                }
+            }
+    
+            .slide-btns {
+                .next-btn {
+                    margin-left: 0.8rem;
+                }
+            }
+
+            .quantity-container {
+                margin-block-end: 1rem;
+                label {
+                    font-size: 1.7rem;
+                    font-weight: bold;
+                }
+
+                input {
+                    outline: none;
+                    font-family: 'Quesha', Arial, Helvetica, sans-serif;
+                    font-size: 1.3rem;
+                    border-radius: .3rem;
+                    background-color: #f2f2f2;
+                    border: 2px solid #694b34;
+                    border-style: inset;
+                    padding: 0.3rem;
+                    
+                    &:hover {
+                        filter: drop-shadow(0 0 .30rem #694b34);
+                    }
+                }
+            }
+            
+            .price-container {
+                span {
+                    font-size: 1.7rem;
+                    font-weight: bold;
+                    margin-inline-end: 4rem;
+                }
+
+                .add-to-cart-btn {
+                    background-color: #694b34;
+                    color: #f2f2f2;
+                    padding: .8rem 1.2rem;
+                    border-radius: 9999px;
+                    font-size: 1.7rem;
+                    transition: all ease-in 100ms;
+
+                    &:hover {
+                        background-color: #956a49;
+                        filter: drop-shadow(0 0 .75rem #694b34);
+                    }
+                }
+            }
+
+        }
+    }
+}
+
+@keyframes coffeepopup {
+    from {
+        opacity: 0;
+        transform: scale(.80);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
