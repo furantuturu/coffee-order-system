@@ -57,7 +57,7 @@ a {
     }
 }
 
-.coffee-menu {
+.coffee-container {
     max-width: 720px;
     margin: auto;
     background-color: #6b4c3550;
@@ -186,6 +186,7 @@ a {
                         align-items: center;
                         gap: 1rem;
                         font-size: 1.5rem;
+                        font-weight: normal;
 
                         img {
                             border-radius: 50%;
@@ -275,5 +276,77 @@ a {
     to {
         opacity: 1;
         transform: scale(1);
+    }
+}
+
+/* order history */
+.order-receipt-card {
+    width: 80%;
+    margin: 4rem auto;
+    padding: 1rem 2rem;
+    background-color: #694b34;
+    border-radius: 1.2rem;
+    filter: drop-shadow(0 0 .75rem #694b34);
+
+    hr {
+        margin-block-end: 2.5rem;
+    }
+
+    .order-receipt-header {
+        text-align: center;
+        padding: 1rem;
+        font-size: 2rem;
+        color: #f2f2f2;
+    }
+
+    .order-receipt-date {
+        font-size: 1.25rem;
+    }
+
+    .order-receipt-details {
+        table {
+            width: 100%;
+            text-align: left;
+            border-collapse: collapse;
+            
+            th, td {
+                border: 1px solid #f2f2f2;
+                padding: .5rem;
+            }
+
+            thead {
+                font-size: 1.5rem;
+            }
+
+            tbody {
+                font-size: 1.3rem;
+            }
+        }
+    }
+
+    .order-receipt-total-price {
+        margin-block: 1.5rem;
+        text-align: end;
+        font-size: 1.5rem;
+    }
+
+    .order-receipt-delete {
+        margin-block: 1.5rem;
+        text-align: end;
+
+        button {
+            background-color: #7B2A09;
+            padding: .5rem;
+            font-size: 1.25rem;
+            color: #f2f2f2;
+            padding-inline: .8rem;
+            border-radius: 9999px;
+            transition: all ease-in 100ms;
+
+            &:hover {
+                background-color: #913f1f;
+                filter: drop-shadow(0 0 .50rem #7B2A09);
+            }
+        }
     }
 }
