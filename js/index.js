@@ -19,7 +19,6 @@ const coffeeTotalPrice = document.querySelector("input[name='coffee-total-price'
 
 const submitForm = document.querySelector('.submit-form')
 const submitOrderBtn = document.querySelector('.submit-order-btn')
-
 const error = document.querySelector('.error')
 let fImg, sImg, price = 0, coffeeName
 
@@ -78,7 +77,7 @@ function sumPricePerQuantity() {
     }
 
     const quantity = parseFloat(quantityInp.value)
-    priceValue.textContent = Math.round(price * quantity * 100) / 100
+    priceValue.textContent = Math.round((price * quantity) * 100) / 100
 }
 
 function addToCartClicked() {
@@ -94,7 +93,32 @@ function addToCartClicked() {
     addToCart(tr)
 }
 
-function addToCart(tr) {
+function editQuantity(value, editClicked) {
+    if (editClicked) {
+        return `<td class="cart-quantity" contenteditable="true" autofocus>${value}</td>`
+    }
+
+    return `<td class="cart-quantity">${value}</td>`
+}
+
+function cartComponent(tr, fimg, coffeeName, quantityValue, priceValue, editBtnClass, editBtnText, editable) {
+    return tr.innerHTML =  /*html*/`
+        <tr class="cart-row">
+            <th scope="row">
+                <img src="${fimg}" alt="${coffeeName}" width="50" height="50">
+                <span class="cart-title">${coffeeName}</span>
+            </th>
+            ${editQuantity(quantityValue, editable)}
+            <td class="cart-price">${priceValue}</td>
+            <td>
+                <button type="button" class="${editBtnClass}">${editBtnText}</button>
+                <button type="button" class="cart-rmv-btn">Remove</button>
+            </td>
+        </tr>
+    `
+}
+
+function addToCart(tr, editable = false) {
     const cartTitles = tableBody.querySelectorAll('.cart-title')
 
     for (const title of cartTitles) {
@@ -103,32 +127,13 @@ function addToCart(tr) {
         }
     }
 
-    tr.innerHTML = 
-    /*html*/`
-        <tr class="cart-row">
-            <th scope="row">
-                <img src="${fImg}" alt="${coffeeName}" width="50" height="50">
-                <span class="cart-title">${coffeeName}</span>
-            </th>
-            <td class="cart-quantity">${quantityInp.value}</td>
-            <td class="cart-price">$${priceValue.textContent}</td>
-            <td><button class="cart-rmv-btn">Remove</button></td>
-        </tr>
-    `
+    cartComponent(tr, fImg, coffeeName, quantityInp.value, '$' + priceValue.textContent, "cart-edit-btn", "Edit", editable)
 
     tableBody.append(tr)
 
-    cartRmvBtnListeners()
+    cartBtnListeners()
     updateTotalPrice()
     cartData()
-}
-
-function cartRmvBtnListeners() {
-    const cartRmvBtns = tableBody.querySelectorAll('.cart-rmv-btn')
-
-    for (const rmvBtn of cartRmvBtns) {
-        rmvBtn.addEventListener('click', removeCart)
-    }
 }
 
 function removeCart(e) {
@@ -136,6 +141,47 @@ function removeCart(e) {
     tableBody.removeChild(btn.parentElement.parentElement)
 
     if (tableBody.children.length < 1) cartInfo.classList.remove('hidden')
+    updateTotalPrice()
+    cartData()
+}
+
+function editCart(e) {
+    submitOrderBtn.setAttribute("disabled", true)
+
+    const btn = e.target
+    const tr = btn.parentElement.parentElement
+    
+    const img = tr.querySelector('img').src
+    const coffeeName = tr.querySelector('.cart-title').textContent
+    const quantity = tr.querySelector('.cart-quantity').textContent
+    const price = tr.querySelector('.cart-price').textContent
+
+    cartComponent(tr, img, coffeeName, quantity, price, "cart-done-btn", "Done", true)
+
+    let originalPrice = Math.round((parseFloat(price.replace('$', '')) / parseInt(quantity)) * 100) / 100
+    // console.log(originalPrice);
+    cartBtnListeners(originalPrice)
+}
+
+function doneCart(e, originalPrice) {
+    const btn = e.target
+    const tr = btn.parentElement.parentElement
+    
+    const img = tr.querySelector('img').src
+    const coffeeName = tr.querySelector('.cart-title').textContent
+    const quantity = tr.querySelector('.cart-quantity')
+    const price = tr.querySelector('.cart-price')
+
+    if (isNaN(parseInt(quantity.textContent)) || parseInt(quantity.textContent) < 1) {
+        quantity.textContent = 1
+    } else if (parseInt(quantity.textContent) > 10) {
+        quantity.textContent = 10
+    } else {
+        price.textContent = Math.round((originalPrice * parseInt(quantity.textContent)) * 100) / 100
+    }
+
+    cartComponent(tr, img, coffeeName, quantity.textContent, price.textContent, "cart-edit-btn", "Edit", false)
+    cartBtnListeners()
     updateTotalPrice()
     cartData()
 }
@@ -170,7 +216,31 @@ function cartData() {
     }
 
     coffeeTotalPrice.value = totalPriceValue.textContent
-    console.log({ coffeename: coffeeNames.value, coffeequantity: coffeeQuantities.value, coffeeprices: coffeePrices.value, totalprice: coffeeTotalPrice.value })
+    // console.log({ coffeename: coffeeNames.value, coffeequantity: coffeeQuantities.value, coffeeprices: coffeePrices.value, totalprice: coffeeTotalPrice.value })
+}
+
+function cartBtnListeners(originalPrice) {
+    const cartRmvBtns = tableBody.querySelectorAll('.cart-rmv-btn')
+    const cartEditBtns = tableBody.querySelectorAll('.cart-edit-btn')
+    const cartDoneBtns = tableBody.querySelectorAll('.cart-done-btn')
+
+    if (cartDoneBtns.length < 1) {
+        submitOrderBtn.removeAttribute("disabled")
+    }
+
+    for (const rmvBtn of cartRmvBtns) {
+        rmvBtn.addEventListener('click', removeCart)
+    }
+
+    for (const editBtn of cartEditBtns) {
+        editBtn.addEventListener('click', editCart)
+    }
+
+    for (const doneBtn of cartDoneBtns) {
+        doneBtn.addEventListener('click', (e) => {
+            doneCart(e, originalPrice)
+        })
+    }
 }
 
 function submitOrder() {
