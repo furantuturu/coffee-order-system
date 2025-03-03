@@ -5,7 +5,7 @@ class Database {
     private $statement;
     public function __construct() {
         try {
-            $this->connection = new \PDO("mysql:host=localhost;dbname=ordersys;port=3306","root","Chunchunmaru1", [
+            $this->connection = new \PDO("mysql:host=localhost;dbname=ordersys;port=3306","root","chunchunmaru", [
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
                 PDO::FETCH_DEFAULT => PDO::FETCH_ASSOC
             ]);
