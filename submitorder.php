@@ -12,6 +12,11 @@ function randomGeneratedReceiptID() {
     return $randomGeneratedID;
 }
 
+if (empty(trim(htmlspecialchars($_POST['coffee-names'])))) {
+    header("Location: orderhistory.php");
+    exit();
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     require 'Database.php';
 
