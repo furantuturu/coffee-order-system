@@ -206,17 +206,38 @@ a {
                             text-align: center;
 
                             button {
-                                background-color: #7B2A09;
                                 padding: .5rem;
                                 font-size: 1.4rem;
                                 color: #f2f2f2;
                                 padding-inline: .8rem;
                                 border-radius: 9999px;
                                 transition: all ease-in 100ms;
-                
+                            }
+
+                            .cart-rmv-btn {
+                                background-color: #7B2A09;
+                                                                
                                 &:hover {
                                     background-color: #913f1f;
                                     filter: drop-shadow(0 0 .50rem #7B2A09);
+                                }
+                            }
+
+                            .cart-edit-btn {
+                                background-color: #b35e3c;
+
+                                &:hover {
+                                    background-color: #c66f4c;
+                                    filter: drop-shadow(0 0 .50rem #b35e3c);
+                                }
+                            }
+
+                            .cart-done-btn {
+                                background-color: #b6ac3f;
+
+                                &:hover {
+                                    background-color: #cbc54f;
+                                    filter: drop-shadow(0 0 .50rem #b6ac3f);
                                 }
                             }
                         }
@@ -258,10 +279,16 @@ a {
                 font-size: 1.7rem;
                 transition: all ease-in 100ms;
 
-                &:hover {
+                &:disabled {
+                    background-color: #7d573a;
+                    pointer-events: none;
+                }
+
+                &:hover:not(&:disabled) {
                     background-color: #ac7448;
                     filter: drop-shadow(0 0 .75rem #9f683d);
                 }
+
             }
         }
     }
