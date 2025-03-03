@@ -13,7 +13,7 @@ function randomGeneratedReceiptID() {
 }
 
 if (empty(trim(htmlspecialchars($_POST['coffee-names'])))) {
-    header("Location: orderhistory.php");
+    header("Location: /#cart");
     exit();
 }
 
