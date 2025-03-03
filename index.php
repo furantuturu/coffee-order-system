@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="assets/coffee-icon.jpg">
     <title>Coffee Order System</title>
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/style-min.css">
 </head>
 <body>
     <div class="coffee-container">
@@ -105,7 +105,7 @@
                     <tbody>
                     </tbody>
                 </table>
-                <div class="cart-info">
+                <div class="cart-info" id="cart">
                     <p>Coffee added to the cart will be shown here!. :&#41;</p>
                 </div>
                 <input type="hidden" name="coffee-names">
@@ -122,6 +122,6 @@
     <dialog class="coffee-modal">
         <img src="" alt="" width="500" height="500">
     </dialog>
-    <script src="js/index.js"></script>
+    <script src="js/index-min.js"></script>
 </body>
 </html>
